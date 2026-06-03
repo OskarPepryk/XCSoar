@@ -5,6 +5,7 @@
 
 #include "GroundSpeedComputer.hpp"
 #include "FilteredVarioComputer.hpp"
+#include "AccelVarioComputer.hpp"
 
 struct MoreData;
 struct DerivedInfo;
@@ -20,6 +21,7 @@ struct ComputerSettings;
 class BasicComputer {
   GroundSpeedComputer ground_speed;
   FilteredVarioComputer filtered_vario;
+  AccelVarioComputer accel_vario;
 
 public:
   /**

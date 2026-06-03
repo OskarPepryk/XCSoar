@@ -178,6 +178,7 @@ constexpr std::string_view PEVStartWaitTime = "PEVStartWaitTime";
 constexpr std::string_view PEVStartWindow = "PEVStartWindow";
 
 constexpr std::string_view EnableNavBaroAltitude = "EnableNavBaroAltitude";
+constexpr std::string_view AccelVarioEnabled = "AccelVarioEnabled";
 
 constexpr std::string_view LoggerTimeStepCruise = "LoggerTimeStepCruise";
 constexpr std::string_view LoggerTimeStepCircling = "LoggerTimeStepCircling";
@@ -287,7 +288,7 @@ constexpr std::string_view NOTAMEnabled = "NOTAMEnabled";
 constexpr std::string_view NOTAMRadius = "NOTAMRadius";
 constexpr std::string_view NOTAMRefreshInterval = "NOTAMRefreshInterval";
 constexpr std::string_view NOTAMShowIFR = "NOTAMShowIFR";
-constexpr std::string_view NOTAMShowOnlyEffective = 
+constexpr std::string_view NOTAMShowOnlyEffective =
   "NOTAMShowOnlyEffective";
 constexpr std::string_view NOTAMMaxRadius = "NOTAMMaxRadius";
 constexpr std::string_view NOTAMHiddenQCodes = "NOTAMHiddenQCodes";

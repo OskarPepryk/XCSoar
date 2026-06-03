@@ -430,4 +430,5 @@ BasicComputer::Compute(MoreData &data,
   ComputeNettoVario(data, sink_rate);
   filtered_vario.Compute(data, sink_rate);
   ComputeDynamics(data, calculated);
+  accel_vario.Update(data, settings.features);
 }

@@ -1,0 +1,17 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "containerEnv": {
+    "ANDROID_NDK": "/home/ubuntu/opt/android-ndk-r26d",
+    "ANDROID_SDK": "/home/ubuntu/opt/android-sdk-linux"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "dev.containers.gitCredentialHelperConfigLocation": "system"
+      }
+    }
+  },
+  "name": "XCSoar Android"
+}

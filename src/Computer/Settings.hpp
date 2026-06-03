@@ -167,6 +167,9 @@ struct FeaturesSettings {
   /** Navigate by baro altitude instead of GPS altitude */
   bool nav_baro_altitude_enabled;
 
+  /** Use smartphone accelerometer to aid the variometer (Android only) */
+  bool accel_vario_enabled;
+
   void SetDefaults();
 };
 

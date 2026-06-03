@@ -28,7 +28,12 @@ void
 DeviceDescriptor::OnAccelerationSensor([[maybe_unused]] float ddx, [[maybe_unused]] float ddy,
                                        [[maybe_unused]] float ddz) noexcept
 {
-  // TODO
+  const auto e = BeginEdit();
+  NMEAInfo &basic = *e;
+  basic.UpdateClock();
+  basic.alive.Update(basic.clock);
+  basic.acceleration.ProvideRawAcceleration(basic.clock, ddx, ddy, ddz);
+  e.Commit();
 }
 
 void
@@ -291,7 +296,7 @@ DeviceDescriptor::OnGliderLinkTraffic(GliderLinkId id, const char *callsign,
                                       double gspeed, double vspeed,
                                       unsigned bearing) noexcept
 {
-  // GliderLink uses these special values in case they don't have a real value  
+  // GliderLink uses these special values in case they don't have a real value
   const double ALT_NONE = -10000.0;
   const double BEARING_NONE = 361.0;
   const double GSPEED_NONE = -1.0;

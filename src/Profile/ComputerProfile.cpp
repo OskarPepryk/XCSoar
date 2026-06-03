@@ -102,6 +102,7 @@ Profile::Load(const ProfileMap &map, FeaturesSettings &settings)
   map.GetEnum(ProfileKeys::FinalGlideTerrain, settings.final_glide_terrain);
   map.Get(ProfileKeys::BlockSTF, settings.block_stf_enabled);
   map.Get(ProfileKeys::EnableNavBaroAltitude, settings.nav_baro_altitude_enabled);
+  map.Get(ProfileKeys::AccelVarioEnabled, settings.accel_vario_enabled);
 }
 
 void

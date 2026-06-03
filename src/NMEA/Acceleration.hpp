@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "time/Stamp.hpp"
+
 /**
  * State of acceleration of aircraft
  */
@@ -22,13 +24,26 @@ struct AccelerationState
 
   /**
    * G-Load information of external device (if available)
-   * or estimated (assuming balanced turn) 
+   * or estimated (assuming balanced turn)
    * @see AccelerationAvailable
    */
   double g_load;
 
-  void Reset() {
+  /**
+   * Is the raw 3-axis accelerometer vector available?
+   * Set by the internal smartphone sensor via ProvideRawAcceleration().
+   */
+  bool raw_available;
+
+  /** Timestamp of the raw accelerometer sample (monotonic clock). */
+  TimeStamp raw_timestamp;
+
+  /** Raw accelerometer vector in device frame [m/s²]. */
+  float accel_x, accel_y, accel_z;
+
+  void Reset() noexcept {
     available = false;
+    raw_available = false;
   }
 
   void ProvideGLoad(double _g_load, bool _real=true) noexcept {
@@ -37,9 +52,18 @@ struct AccelerationState
     available = true;
   }
 
+  void ProvideRawAcceleration(TimeStamp t,
+                              float x, float y, float z) noexcept {
+    raw_timestamp = t;
+    accel_x = x;
+    accel_y = y;
+    accel_z = z;
+    raw_available = true;
+  }
+
   /**
    * Adds data from the specified object, unless already present in
    * this one.
    */
-  void Complement(const AccelerationState &add);
+  void Complement(const AccelerationState &add) noexcept;
 };

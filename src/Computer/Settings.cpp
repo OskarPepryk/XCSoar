@@ -42,6 +42,7 @@ FeaturesSettings::SetDefaults()
   final_glide_terrain = FinalGlideTerrain::TERRAIN_LINE;
   block_stf_enabled = false;
   nav_baro_altitude_enabled = true;
+  accel_vario_enabled = false;
 }
 
 void

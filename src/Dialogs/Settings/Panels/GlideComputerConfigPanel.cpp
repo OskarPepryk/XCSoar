@@ -23,6 +23,7 @@ enum ControlIndex {
   WaveAssistant,
   CruiseToCirclingModeSwitchThreshold,
   CirclingToCruiseModeSwitchThreshold,
+  AccelVarioEnabled,
 };
 
 class GlideComputerConfigPanel final : public RowFormWidget {
@@ -104,6 +105,13 @@ GlideComputerConfigPanel::Prepare(ContainerWindow &parent,
                "When enabled, wave sources are identified and shown on the map."),
              settings_computer.wave.enabled);
 
+#ifdef ANDROID
+  AddBoolean(_("Accel. vario aid"),
+             _("Use the smartphone accelerometer to aid the variometer."),
+             settings_computer.features.accel_vario_enabled);
+  SetExpertRow(AccelVarioEnabled);
+#endif
+
   AddDuration(_("Cruise/Circling period"),
               _("How many seconds of turning before changing from cruise to circling mode."),
               seconds{2}, seconds{30}, seconds{1},
@@ -145,6 +153,11 @@ GlideComputerConfigPanel::Save(bool &_changed) noexcept
 
   changed |= SaveValue(WaveAssistant, ProfileKeys::WaveAssistant,
                        settings_computer.wave.enabled);
+
+#ifdef ANDROID
+  changed |= SaveValue(AccelVarioEnabled, ProfileKeys::AccelVarioEnabled,
+                       settings_computer.features.accel_vario_enabled);
+#endif
 
   changed |= SaveValue(CruiseToCirclingModeSwitchThreshold, ProfileKeys::CruiseToCirclingModeSwitchThreshold,
                        settings_computer.circling.cruise_to_circling_mode_switch_threshold);
