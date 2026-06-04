@@ -14,12 +14,12 @@
  */
 
 #ifndef PRODUCT_NAME
-#define PRODUCT_NAME "XCSoar"
+#define PRODUCT_NAME "XCSoar OP"
 #endif
 
 /* Lowercase version for file paths and Unix conventions */
 #ifndef PRODUCT_NAME_LC
-#define PRODUCT_NAME_LC "xcsoar"
+#define PRODUCT_NAME_LC "xcsoar op"
 #endif
 
 /* ASCII version for help text and logging */
@@ -27,7 +27,7 @@
 
 /* Android package name (reverse domain notation) */
 #ifndef ANDROID_PACKAGE
-#define ANDROID_PACKAGE "org.xcsoar"
+#define ANDROID_PACKAGE "org.xcsoar.op"
 #endif
 
 /* HTTPS URLs for --help footers, credits, etc.; override when rebranding. */

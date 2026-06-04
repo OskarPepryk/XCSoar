@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libtool \
         autoconf \
         pkg-config \
+        libfmt-dev \
         librsvg2-bin \
         xsltproc \
         imagemagick \

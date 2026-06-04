@@ -28,11 +28,13 @@ class AccelVarioComputer {
   std::array<AccelSample, HISTORY_SIZE> history;
   std::size_t head = 0;
   std::size_t count = 0;
+  float smoothed_g_load = 1.0f;
 
 public:
   void Reset() noexcept {
     head = 0;
     count = 0;
+    smoothed_g_load = 1.0f;
   }
 
   /**

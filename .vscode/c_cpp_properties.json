@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "name": "Android",
+      "includePath": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/src/Engine"
+      ],
+      "defines": [
+        "ANDROID",
+        "HAVE_POSIX",
+        "HAVE_HTTP",
+        "HAVE_PCM_PLAYER",
+        "ENABLE_OPENGL"
+      ],
+      "cppStandard": "c++20",
+      "intelliSenseMode": "linux-clang-arm64"
+    }
+  ],
+  "version": 4
+}

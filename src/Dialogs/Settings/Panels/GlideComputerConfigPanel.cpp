@@ -21,9 +21,11 @@ enum ControlIndex {
   AverEffTime,
   PredictWindDrift,
   WaveAssistant,
+#ifdef ANDROID
+  AccelVarioEnabled,
+#endif
   CruiseToCirclingModeSwitchThreshold,
   CirclingToCruiseModeSwitchThreshold,
-  AccelVarioEnabled,
 };
 
 class GlideComputerConfigPanel final : public RowFormWidget {

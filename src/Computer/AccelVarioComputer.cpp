@@ -30,9 +30,8 @@ AccelVarioComputer::Update(MoreData &data,
   if (count < 2)
     return;
 
-  // Moving average over the last FILTER_SAMPLES (or all available) samples.
+  // Moving average magnitude over the last FILTER_SAMPLES samples.
   const std::size_t n = std::min(count, FILTER_SAMPLES);
-
   float sum = 0;
   for (std::size_t i = 0; i < n; ++i) {
     const std::size_t idx = (head + HISTORY_SIZE - 1 - i) % HISTORY_SIZE;
@@ -41,22 +40,25 @@ AccelVarioComputer::Update(MoreData &data,
   }
   const float avg_accel = sum / static_cast<float>(n);
 
-  // Net vertical acceleration (positive = upward), ignoring g-loading in turns.
-  const float net_accel = avg_accel - EARTH_G;
+  // Exponential LPF on g_load (α=0.05 ≈ 1s time constant at 20 Hz).
+  const float raw_g = data.acceleration.available
+    ? static_cast<float>(data.acceleration.g_load)
+    : 1.0f;
+  smoothed_g_load += 0.05f * (raw_g - smoothed_g_load);
+  const float net_accel = avg_accel - smoothed_g_load * EARTH_G;
 
-  // Time span covered by the window (oldest to newest sample).
-  const std::size_t oldest_idx = (head + HISTORY_SIZE - n) % HISTORY_SIZE;
-  const std::size_t newest_idx = (head + HISTORY_SIZE - 1) % HISTORY_SIZE;
+  // Instantaneous dt between the two most recent samples.
+  const std::size_t prev_idx = (head + HISTORY_SIZE - 2) % HISTORY_SIZE;
+  const std::size_t last_idx = (head + HISTORY_SIZE - 1) % HISTORY_SIZE;
   const float dt = static_cast<float>(
-      (history[newest_idx].t - history[oldest_idx].t).count());
+      (history[last_idx].t - history[prev_idx].t).count());
 
-  if (dt <= 0)
+  if (dt <= 0 || dt > 0.5f)  // sanity: ignore stale/missing samples
     return;
 
-  // Rough integral: avg net acceleration * time window ≈ Δv (m/s).
+  // Δv = net_accel * dt — instantaneous vertical velocity contribution.
   const double accel_vario = static_cast<double>(net_accel * dt);
 
-  // Blend into brutto_vario if a barometric source is present.
   if (data.brutto_vario_available)
     data.brutto_vario += accel_vario;
 }
